@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjtyui8bubeoo"]
+
+[ext_resource type="Script" path="res://node_3d.gd" id="1_tc2qq"]
+[ext_resource type="Script" path="res://pan_rotation_timer.gd" id="2_i4kf2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qwjf4"]
+size = Vector3(0.1, 0.05, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1aojl"]
+size = Vector3(1, 0.05, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_taiq5"]
+size = Vector3(0.5, 0.05, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lk86k"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w0b7t"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_isxjq"]
+radius = 0.1
+height = 0.2
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_tc2qq")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.882168, 0.470935, 0, -0.470935, 0.882168, 0, 0.520946, 0.682883)
+
+[node name="pan" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+motion_mode = 1
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="pan"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.249335)
+shape = SubResource("BoxShape3D_qwjf4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pan"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.500665)
+shape = SubResource("BoxShape3D_1aojl")
+
+[node name="handle" type="RigidBody3D" parent="pan"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
+gravity_scale = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pan/handle"]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.500665)
+mesh = SubResource("BoxMesh_taiq5")
+skeleton = NodePath("../../../ball")
+
+[node name="main" type="RigidBody3D" parent="pan"]
+gravity_scale = 0.0
+
+[node name="main" type="MeshInstance3D" parent="pan/main"]
+transform = Transform3D(1, 0, 0, 0, 0.05, 0, 0, 0, 1, 0, 0, -0.500665)
+mesh = SubResource("BoxMesh_lk86k")
+skeleton = NodePath("../../../Camera3D")
+
+[node name="ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ball"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.2, -0.500665)
+shape = SubResource("SphereShape3D_w0b7t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ball"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.500665)
+mesh = SubResource("SphereMesh_isxjq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-3.43716e-08, -0.617805, 0.786332, -2.70051e-08, 0.786332, 0.617805, -1, 0, -4.37114e-08, 6.05456, 4.78932, 0)
+
+[node name="panRotationTimer" type="Timer" parent="."]
+one_shot = true
+script = ExtResource("2_i4kf2")
+
+[connection signal="timeout" from="panRotationTimer" to="." method="_on_pan_rotation_timer_timeout"]
