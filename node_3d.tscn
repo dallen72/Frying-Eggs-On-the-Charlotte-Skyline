@@ -75,4 +75,7 @@ transform = Transform3D(-3.43716e-08, -0.617805, 0.786332, -2.70051e-08, 0.78633
 one_shot = true
 script = ExtResource("2_i4kf2")
 
+[node name="panCalibrateTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="panRotationTimer" to="." method="_on_pan_rotation_timer_timeout"]
+[connection signal="timeout" from="panCalibrateTimer" to="." method="_on_pan_calibrate_timer_timeout"]

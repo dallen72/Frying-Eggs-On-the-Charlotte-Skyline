@@ -14,18 +14,7 @@ var _pan_is_being_flipped
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$panRotationTimer.start()
-	_pan_is_rotating = false
-	_elapsed = 0.0
-	_previous_rotation_x = 0.0
-	_previous_rotation_z = 0.0
-	random_num_generator = RandomNumberGenerator.new()
-	_angle_x = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
-	_angle_z = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
-	if (abs(_angle_x) > 0.1):
-		_angle_x = 0.2
-	elif (abs(_angle_z) > 0.1):
-		_angle_z = 0.2
+	_initialize_auto_pan_rotate()
 		
 	_pan_is_being_flipped = false
 
@@ -40,9 +29,27 @@ func _physics_process(delta: float) -> void:
 		
 	if (Input.is_action_just_pressed("ui_accept")):
 		flip_pan()
+		
+	if (Input.is_action_pressed("ui_accept")):
+		$panCalibrateTimer.start()
 
 	if (_pan_is_being_flipped == true):
 		continue_flipping_pan(_angle_x, _angle_z)
+
+
+func _initialize_auto_pan_rotate():
+	$panRotationTimer.start()
+	_pan_is_rotating = false
+	_elapsed = 0.0
+	_previous_rotation_x = 0.0
+	_previous_rotation_z = 0.0
+	random_num_generator = RandomNumberGenerator.new()
+	_angle_x = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
+	_angle_z = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
+	if (abs(_angle_x) > 0.1):
+		_angle_x = 0.2
+	elif (abs(_angle_z) > 0.1):
+		_angle_z = 0.2
 
 
 func flip_pan():
@@ -106,3 +113,12 @@ func rotate_pan(angle_x, angle_z):
 
 func _on_pan_rotation_timer_timeout() -> void:
 	_pan_is_rotating = true
+
+
+func _on_pan_calibrate_timer_timeout() -> void:
+	if 3 seconds passed:
+		_move_pan_under_ball()
+		
+		
+func _move_pan_under_ball():
+	# move the pan under the ball to like you would if you were balacing a ping pong paddle
