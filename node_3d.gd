@@ -19,9 +19,14 @@ func _ready() -> void:
 	_elapsed = 0.0
 	_previous_rotation_x = 0.0
 	_previous_rotation_z = 0.0
-	_angle_x = 0
-	_angle_z = MAX_ANGLE
 	random_num_generator = RandomNumberGenerator.new()
+	_angle_x = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
+	_angle_z = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
+	if (abs(_angle_x) > 0.1):
+		_angle_x = 0.2
+	elif (abs(_angle_z) > 0.1):
+		_angle_z = 0.2
+		
 	_pan_is_being_flipped = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,8 +48,8 @@ func _physics_process(delta: float) -> void:
 func flip_pan():
 	_previous_rotation_x = $pan.rotation.x
 	_previous_rotation_z = $pan.rotation.z
-	_angle_z = 0#-1 * $pan.rotation.z# + random_num_generator.randf_range(-0.01, 0.01)
-	_angle_x = 0#-1 * $pan.rotation.x# + random_num_generator.randf_range(-0.01, 0.01)
+	_angle_z = -1 * $pan.rotation.z + random_num_generator.randf_range(-0.1, 0.1)
+	_angle_x = -1 * $pan.rotation.x + random_num_generator.randf_range(-0.1, 0.1)
 	_elapsed = 0.01
 	_pan_is_being_flipped = true
 
