@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://sexbqjx30dhi"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w0b7t"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_isxjq"]
+radius = 0.1
+height = 0.2
+
+[node name="ball" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+inertia = Vector3(1, 1, 0)
+linear_velocity = Vector3(0, 0, 0.1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("SphereShape3D_w0b7t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_isxjq")
