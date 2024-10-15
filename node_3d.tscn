@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjtyui8bubeoo"]
+[gd_scene load_steps=11 format=3 uid="uid://bjtyui8bubeoo"]
 
 [ext_resource type="Script" path="res://node_3d.gd" id="1_tc2qq"]
 [ext_resource type="PackedScene" uid="uid://sexbqjx30dhi" path="res://ball.tscn" id="2_lvcmm"]
+[ext_resource type="Texture2D" uid="uid://c3nhfwjh7h7m1" path="res://charlotte-skyline-1.jpg" id="3_7pftx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qwjf4"]
 size = Vector3(0.1, 0.05, 0.5)
@@ -13,6 +14,17 @@ size = Vector3(1, 0.05, 1)
 size = Vector3(0.5, 0.05, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lk86k"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_l6a0d"]
+panorama = ExtResource("3_7pftx")
+
+[sub_resource type="Sky" id="Sky_jbhae"]
+sky_material = SubResource("PanoramaSkyMaterial_l6a0d")
+
+[sub_resource type="Environment" id="Environment_u4cvn"]
+background_mode = 2
+sky = SubResource("Sky_jbhae")
+sky_rotation = Vector3(0, 1.5708, 0)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_tc2qq")
@@ -64,6 +76,9 @@ one_shot = true
 
 [node name="panCalibrateTimer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_u4cvn")
 
 [connection signal="timeout" from="panRotationTimer" to="." method="_on_pan_rotation_timer_timeout"]
 [connection signal="timeout" from="panCalibrateTimer" to="." method="_on_pan_calibrate_timer_timeout"]

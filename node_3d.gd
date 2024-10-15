@@ -152,6 +152,7 @@ func _on_pan_calibrate_timer_timeout() -> void:
 		
 # move the pan under the ball to like you would if you were balacing a ping pong paddle
 func _move_pan_under_ball():
-	$rig/ball.apply_impulse(-2*($rig/ball.position - $rig/ballSpawn.position))
-	$rig/ball.inertia = Vector3(0.1, 0.1, 0.1)
+	const UP_OFFSET_PUSHING_BALL_UP = Vector3(0,1,0)
+	$rig/ball.apply_impulse(-2*($rig/ball.position - $rig/ballSpawn.position) + UP_OFFSET_PUSHING_BALL_UP)
+	#$rig/ball.inertia = Vector3(0.1, 0.1, 0.1)
 	print("debug, pan moved under ball")
