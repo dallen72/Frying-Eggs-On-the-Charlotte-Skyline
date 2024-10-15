@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bjtyui8bubeoo"]
+[gd_scene load_steps=14 format=3 uid="uid://bjtyui8bubeoo"]
 
 [ext_resource type="Script" path="res://node_3d.gd" id="1_tc2qq"]
 [ext_resource type="PackedScene" uid="uid://sexbqjx30dhi" path="res://ball.tscn" id="2_lvcmm"]
 [ext_resource type="Texture2D" uid="uid://c3nhfwjh7h7m1" path="res://charlotte-skyline-1.jpg" id="3_7pftx"]
+[ext_resource type="PackedScene" uid="uid://dm7ui1q6dab41" path="res://menu.tscn" id="4_stici"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qwjf4"]
 size = Vector3(0.1, 0.05, 0.5)
@@ -10,10 +11,18 @@ size = Vector3(0.1, 0.05, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1aojl"]
 size = Vector3(1, 0.05, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5msr"]
+albedo_color = Color(0, 0, 0, 0)
+
 [sub_resource type="BoxMesh" id="BoxMesh_taiq5"]
+material = SubResource("StandardMaterial3D_f5msr")
 size = Vector3(0.5, 0.05, 0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbehu"]
+albedo_color = Color(0, 0, 0, 0)
+
 [sub_resource type="BoxMesh" id="BoxMesh_lk86k"]
+material = SubResource("StandardMaterial3D_kbehu")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_l6a0d"]
 panorama = ExtResource("3_7pftx")
@@ -79,6 +88,8 @@ wait_time = 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_u4cvn")
+
+[node name="menu" parent="." instance=ExtResource("4_stici")]
 
 [connection signal="timeout" from="panRotationTimer" to="." method="_on_pan_rotation_timer_timeout"]
 [connection signal="timeout" from="panCalibrateTimer" to="." method="_on_pan_calibrate_timer_timeout"]
