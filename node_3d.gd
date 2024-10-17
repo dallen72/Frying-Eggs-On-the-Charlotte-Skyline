@@ -18,7 +18,8 @@ var _game_started
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_initialize_auto_pan_rotate()
+	random_num_generator = RandomNumberGenerator.new()
+	#_initialize_auto_pan_rotate()
 	
 	_pan_was_just_reset = false	
 	_pan_is_being_flipped = false
@@ -78,11 +79,11 @@ func run_game_loop(delta):
 
 func _initialize_auto_pan_rotate():
 	$panRotationTimer.start()
+	print("debug, pan is rotating")
 	_pan_is_rotating = false
 	_elapsed = 0.0
 	_previous_rotation_x = 0.0
 	_previous_rotation_z = 0.0
-	random_num_generator = RandomNumberGenerator.new()
 	_angle_x = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
 	_angle_z = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
 	if (abs(_angle_x) > 0.1):
@@ -92,10 +93,21 @@ func _initialize_auto_pan_rotate():
 
 
 func flip_pan():
+	print("debug, inside flip_pan")
 	_previous_rotation_x = $rig/pan.rotation.x
 	_previous_rotation_z = $rig/pan.rotation.z
-	_angle_z = -1 * $rig/pan.rotation.z + random_num_generator.randf_range(-0.1, 0.1)
-	_angle_x = -1 * $rig/pan.rotation.x + random_num_generator.randf_range(-0.1, 0.1)
+	while true:
+		_angle_z   = -1 * $rig/pan.rotation.z + random_num_generator.randf_range(-0.1, 0.1)
+		print("debug, angle_z : " + str(_angle_z))
+		if (abs(_angle_z) > 0.05):
+			break
+	while true:
+		_angle_x = -1 * $rig/pan.rotation.x + random_num_generator.randf_range(-0.1, 0.1)
+		print("debug, angle_x: " + str(_angle_x))
+		if (abs(_angle_x) > 0.05):
+			break
+	print("debug, angle_x: " + str(_angle_x))
+	print("debug, angle_z: " + str(_angle_z))
 	_elapsed = 0.01
 	_pan_is_being_flipped = true
 
