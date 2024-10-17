@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 			var direction_to_center = $rig/ball.position - Vector3(0, 0, -0.5) - $rig/ballSpawn.position
 			$rig.velocity = direction_to_center
 			print("debug, pan velocity: " + str($rig.velocity))
-			$rig.move_and_slide()
+			$rig.move_and_slide() # TODO: delta time?
 
 		if ($rig/ball.position.length() > 3.0):
 			$rig/ball.queue_free()
