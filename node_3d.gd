@@ -37,6 +37,7 @@ func _physics_process(delta: float) -> void:
 	
 	if ( ! _game_started):
 		if (Input.is_action_pressed("ui_accept")):
+			$rig/ball.apply_impulse(Vector3(0, 0, 0.5))
 			$menu.hide()
 			$instructionOne.show()
 			_game_started = true
@@ -62,7 +63,7 @@ func run_game_loop(delta):
 		if (_instruction_count == 3):
 			$instructionOne.hide()
 			$instructionTwo.show()
-		elif (_instruction_count == 5):
+		elif (_instruction_count == 5 ):
 			$instructionTwo.hide()
 		print("debug, instruction_count: " + str(_instruction_count     ))
 
