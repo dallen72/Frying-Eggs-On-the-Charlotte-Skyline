@@ -14,6 +14,7 @@ var _pan_is_being_flipped
 var _pan_was_just_reset
 var _pan_is_being_moved_under_ball
 var Ball = preload("res://ball.tscn")
+var _game_started
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,6 +23,7 @@ func _ready() -> void:
 	_pan_was_just_reset = false	
 	_pan_is_being_flipped = false
 	_pan_is_being_moved_under_ball = false
+	_game_started = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -29,9 +31,19 @@ func _process(delta: float) -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	if (_pan_is_rotating == true):
-		rotate_pan(_angle_x, _angle_z)
+	
+	if ( ! _game_started):
+		if (Input.is_action_pressed("ui_accept")):
+			$menu.hide()     
+			_game_started = true		
+	else:
+		run_game_loop(delta)
 		
+
+func run_game_loop(delta):   
+	if (_pan_is_rotating == true):
+			rotate_pan(_angle_x, _angle_z)
+			
 	if (Input.is_action_just_pressed("ui_accept")):
 		$panCalibrateTimer.start()
 
@@ -63,7 +75,6 @@ func _physics_process(delta: float) -> void:
 			var ball = Ball.instantiate()
 			$rig.add_child(ball)
 			ball.name = "ball"
-
 
 func _initialize_auto_pan_rotate():
 	$panRotationTimer.start()

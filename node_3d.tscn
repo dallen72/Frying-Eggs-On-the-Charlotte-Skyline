@@ -49,7 +49,6 @@ transform = Transform3D(1, 0, 0, 0, 0.882168, 0.470935, 0, -0.470935, 0.882168, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
 
 [node name="pan" type="CharacterBody3D" parent="rig"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 motion_mode = 1
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="rig/pan"]
