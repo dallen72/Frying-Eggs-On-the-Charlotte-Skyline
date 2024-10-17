@@ -15,6 +15,7 @@ var _pan_was_just_reset
 var _pan_is_being_moved_under_ball
 var Ball = preload("res://ball.tscn")
 var _game_started
+var _instruction_count
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,6 +26,7 @@ func _ready() -> void:
 	_pan_is_being_flipped = false
 	_pan_is_being_moved_under_ball = false
 	_game_started = false
+	_instruction_count = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -35,11 +37,12 @@ func _physics_process(delta: float) -> void:
 	
 	if ( ! _game_started):
 		if (Input.is_action_pressed("ui_accept")):
-			$menu.hide()     
-			_game_started = true		
+			$menu.hide()
+			$instructionOne.show()
+			_game_started = true
 	else:
 		run_game_loop(delta)
-		
+
 
 func run_game_loop(delta):   
 	if (_pan_is_rotating == true):
@@ -53,6 +56,15 @@ func run_game_loop(delta):
 		_pan_was_just_reset = false
 		flip_pan()
 		$panCalibrateTimer.stop()
+		if (_instruction_count < 7):
+			_instruction_count += 1
+			
+		if (_instruction_count == 3):
+			$instructionOne.hide()
+			$instructionTwo.show()
+		elif (_instruction_count == 5):
+			$instructionTwo.hide()
+		print("debug, instruction_count: " + str(_instruction_count     ))
 
 	if (_pan_is_being_flipped == true):
 		continue_flipping_pan(_angle_x, _angle_z)
@@ -100,7 +112,7 @@ func flip_pan():
 		_angle_z   = -1 * $rig/pan.rotation.z + random_num_generator.randf_range(-0.1, 0.1)
 		print("debug, angle_z : " + str(_angle_z))
 		if (abs(_angle_z) > 0.05):
-			break
+			break 
 	while true:
 		_angle_x = -1 * $rig/pan.rotation.x + random_num_generator.randf_range(-0.1, 0.1)
 		print("debug, angle_x: " + str(_angle_x))

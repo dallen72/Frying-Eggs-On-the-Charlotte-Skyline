@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bjtyui8bubeoo"]
+[gd_scene load_steps=15 format=3 uid="uid://bjtyui8bubeoo"]
 
 [ext_resource type="Script" path="res://node_3d.gd" id="1_tc2qq"]
 [ext_resource type="PackedScene" uid="uid://sexbqjx30dhi" path="res://ball.tscn" id="2_lvcmm"]
@@ -34,6 +34,9 @@ sky_material = SubResource("PanoramaSkyMaterial_l6a0d")
 background_mode = 2
 sky = SubResource("Sky_jbhae")
 sky_rotation = Vector3(0, 1.5708, 0)
+
+[sub_resource type="Theme" id="Theme_i80a4"]
+default_font_size = 56
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_tc2qq")
@@ -89,6 +92,47 @@ wait_time = 0.5
 environment = SubResource("Environment_u4cvn")
 
 [node name="menu" parent="." instance=ExtResource("4_stici")]
+
+[node name="instructionOne" type="Label" parent="."]
+visible = false
+anchors_preset = -1
+anchor_left = 0.0885417
+anchor_top = 0.157407
+anchor_right = 0.932292
+anchor_bottom = 1.5787
+offset_bottom = -6.10352e-05
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_i80a4")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+text = "Press the SPACE BAR to move the pan.
+
+Don't let the Egg Fall!"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="instructionTwo" type="Label" parent="."]
+visible = false
+anchors_preset = -1
+anchor_left = -0.0555556
+anchor_top = 0.322531
+anchor_right = 0.742188
+anchor_bottom = 1.5787
+offset_left = 161.0
+offset_top = 15.0
+offset_right = 161.0
+offset_bottom = 14.9999
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_i80a4")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+text = "Hold and release the SPACE BAR to move the pan under the Egg"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="panRotationTimer" to="." method="_on_pan_rotation_timer_timeout"]
 [connection signal="timeout" from="panCalibrateTimer" to="." method="_on_pan_calibrate_timer_timeout"]
