@@ -16,6 +16,7 @@ var _pan_is_being_moved_under_ball
 var Ball = preload("res://ball.tscn")
 var _game_started
 var _instruction_count
+var score
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,6 +28,7 @@ func _ready() -> void:
 	_pan_is_being_moved_under_ball = false
 	_game_started = false
 	_instruction_count = 0
+	score = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -34,7 +36,8 @@ func _process(delta: float) -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	
+	score += 1
+	$scoreText.text = "SCORE : " + str(score) + " points"
 	if ( ! _game_started):
 		if (Input.is_action_pressed("ui_accept")):
 			$rig/ball.apply_impulse(Vector3(0, 0, 0.5))
@@ -74,6 +77,7 @@ func run_game_loop(delta):
 			$instructionFive.show()
 		elif (_instruction_count == 11 ):
 			$instructionFive.hide()
+			$scoreText.show()
 		print("debug, instruction_count: " + str(_instruction_count     ))
 
 	if (_pan_is_being_flipped == true):
@@ -95,6 +99,7 @@ func run_game_loop(delta):
 		if ($rig/ball.position.length() > 3.0):
 			$rig/ball.queue_free()
 			await $rig/ball.tree_exited
+			score /= 2
 			var ball = Ball.instantiate()
 			$rig.add_child(ball)
 			ball.name = "ball"
