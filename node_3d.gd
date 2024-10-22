@@ -21,7 +21,6 @@ var score
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	random_num_generator = RandomNumberGenerator.new()
-	#_initialize_auto_pan_rotate()
 	
 	_pan_was_just_reset = false	
 	_pan_is_being_flipped = false
@@ -103,20 +102,6 @@ func run_game_loop(delta):
 			var ball = Ball.instantiate()
 			$rig.add_child(ball)
 			ball.name = "ball"
-
-func _initialize_auto_pan_rotate():
-	$panRotationTimer.start()
-	print("debug, pan is rotating")
-	_pan_is_rotating = false
-	_elapsed = 0.0
-	_previous_rotation_x = 0.0
-	_previous_rotation_z = 0.0
-	_angle_x = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
-	_angle_z = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
-	if (abs(_angle_x) > 0.1):
-		_angle_x = 0.2
-	elif (abs(_angle_z) > 0.1):
-		_angle_z = 0.2
 
 
 func flip_pan():
