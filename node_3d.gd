@@ -91,7 +91,7 @@ func run_game_loop(delta):
 		
 		if (_pan_is_being_moved_under_ball == true):
 			var direction_to_center = $rig/ball.position - Vector3(0, 0, -0.5) - $rig/ballSpawn.position
-			$rig.velocity = direction_to_center
+			$rig.velocity = direction_to_center + Vector3(0, 2*$rig/ball.velocity.y, 0)
 			print("debug, pan velocity: " + str($rig.velocity))
 			$rig.move_and_slide() # TODO: delta time?
 
