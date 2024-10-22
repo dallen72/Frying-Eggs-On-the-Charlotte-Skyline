@@ -36,8 +36,6 @@ func _process(delta: float) -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	score += 1
-	$scoreText.text = "SCORE : " + str(score) + " points"
 	if ( ! _game_started):
 		if (Input.is_action_pressed("ui_accept")):
 			$rig/ball.apply_impulse(Vector3(0, 0, 0.5))
@@ -45,6 +43,8 @@ func _physics_process(delta: float) -> void:
 			$instructionOne.show()
 			_game_started = true
 	else:
+		score += 1
+		$scoreText.text = "SCORE : " + str(score) + " points"
 		run_game_loop(delta)
 
 
@@ -60,22 +60,22 @@ func run_game_loop(delta):
 		_pan_was_just_reset = false
 		flip_pan()
 		$panCalibrateTimer.stop()
-		if (_instruction_count < 12):
+		if (_instruction_count < 48):
 			_instruction_count += 1
 			
-		if (_instruction_count == 3):
+		if (_instruction_count == 12):
 			$instructionOne.hide()
 			$instructionTwo.show()
-		if (_instruction_count == 5):
+		if (_instruction_count == 20):
 			$instructionTwo.hide()
 			$instructionThree.show()
-		if (_instruction_count == 7):
+		if (_instruction_count == 28):
 			$instructionThree.hide()
 			$instructionFour.show()
-		if (_instruction_count == 9):
+		if (_instruction_count == 36):
 			$instructionFour.hide()
 			$instructionFive.show()
-		elif (_instruction_count == 11 ):
+		elif (_instruction_count == 44 ):
 			$instructionFive.hide()
 			$scoreText.show()
 		print("debug, instruction_count: " + str(_instruction_count     ))
