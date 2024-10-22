@@ -51,7 +51,7 @@ theme = SubResource("Theme_3q58u")
 text = "Frying Eggs On The Charlotte Skyline"
 autowrap_mode = 2
 
-[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+[node name="mainInstruction" type="Label" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_bm3iq")
 text = "Press the SPACE BAR to Start"

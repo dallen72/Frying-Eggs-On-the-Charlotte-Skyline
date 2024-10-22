@@ -57,14 +57,23 @@ func run_game_loop(delta):
 		_pan_was_just_reset = false
 		flip_pan()
 		$panCalibrateTimer.stop()
-		if (_instruction_count < 7):
+		if (_instruction_count < 12):
 			_instruction_count += 1
 			
 		if (_instruction_count == 3):
 			$instructionOne.hide()
 			$instructionTwo.show()
-		elif (_instruction_count == 5 ):
+		if (_instruction_count == 5):
 			$instructionTwo.hide()
+			$instructionThree.show()
+		if (_instruction_count == 7):
+			$instructionThree.hide()
+			$instructionFour.show()
+		if (_instruction_count == 9):
+			$instructionFour.hide()
+			$instructionFive.show()
+		elif (_instruction_count == 11 ):
+			$instructionFive.hide()
 		print("debug, instruction_count: " + str(_instruction_count     ))
 
 	if (_pan_is_being_flipped == true):

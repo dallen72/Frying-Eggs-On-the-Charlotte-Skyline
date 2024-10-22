@@ -134,5 +134,68 @@ text = "Hold and release the SPACE BAR to move the pan under the Egg"
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="instructionThree" type="Label" parent="."]
+visible = false
+anchors_preset = -1
+anchor_left = -0.0555556
+anchor_top = 0.322531
+anchor_right = 0.742188
+anchor_bottom = 1.5787
+offset_left = 161.0
+offset_top = 15.0
+offset_right = 161.0
+offset_bottom = 14.9999
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_i80a4")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+text = "The longer you balance the ball, the more points you get..."
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="instructionFour" type="Label" parent="."]
+visible = false
+anchors_preset = -1
+anchor_left = -0.0555556
+anchor_top = 0.322531
+anchor_right = 0.742188
+anchor_bottom = 1.5787
+offset_left = 161.0
+offset_top = 15.0
+offset_right = 161.0
+offset_bottom = 14.9999
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_i80a4")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+text = "But when the ball falls, you lose points"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="instructionFive" type="Label" parent="."]
+visible = false
+anchors_preset = -1
+anchor_left = -0.0555556
+anchor_top = 0.322531
+anchor_right = 0.742188
+anchor_bottom = 1.5787
+offset_left = 161.0
+offset_top = 15.0
+offset_right = 161.0
+offset_bottom = 14.9999
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_i80a4")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+text = "Can you get 1,000,000 points?"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
 [connection signal="timeout" from="panRotationTimer" to="." method="_on_pan_rotation_timer_timeout"]
 [connection signal="timeout" from="panCalibrateTimer" to="." method="_on_pan_calibrate_timer_timeout"]
