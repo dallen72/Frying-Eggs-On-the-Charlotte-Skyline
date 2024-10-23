@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		run_game_loop(delta)
 
 
-func run_game_loop(delta):   
+func run_game_loop(delta):    
 	if (_pan_is_rotating == true):
 			rotate_pan(_angle_x, _angle_z)
 			
