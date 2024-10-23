@@ -67,20 +67,24 @@ func updateInstructionsOnScreen():
 	print("debug, instruction_count: " + str(_instruction_count     ))
 
 
-func run_game_loop(delta):    
-	if (_pan_is_rotating == true):
-			rotate_pan(_angle_x, _angle_z)
-			
+func processUserInput():
 	if (Input.is_action_just_pressed("ui_accept")):
 		$panCalibrateTimer.start()
+		if (_instruction_count < 48):
+			updateInstructionsOnScreen()
 
 	if (Input.is_action_just_released("ui_accept")):
 		_pan_was_just_reset = false
 		flip_pan()
 		$panCalibrateTimer.stop()
-		if (_instruction_count < 48):
-			updateInstructionsOnScreen()
 
+
+func run_game_loop(delta):    
+	processUserInput()
+	
+	if (_pan_is_rotating == true):
+		rotate_pan(_angle_x, _angle_z)
+			
 	if (_pan_is_being_flipped == true):
 		continue_flipping_pan(_angle_x, _angle_z)
 
@@ -93,7 +97,7 @@ func run_game_loop(delta):
 		
 		if (_pan_is_being_moved_under_ball == true):
 			var direction_to_center = $rig/ball.position - Vector3(0, 0, -0.5) - $rig/ballSpawn.position
-			$rig.velocity = direction_to_center + Vector3(0, 2*$rig/ball.velocity.y, 0)
+			$rig.velocity = direction_to_center + Vector3(0, 10 *$rig/ball.velocity.y, 0)
 			print("debug, pan velocity: " + str($rig.velocity))
 			$rig.move_and_slide() # TODO: delta time?
 
@@ -177,8 +181,8 @@ func rotate_pan(angle_x, angle_z):
 		_pan_is_rotating = false
 
 
-func _on_pan_rotation_timer_timeout() -> void:
-	_pan_is_rotating = true
+func _on_pan_flip_reaction_timer_timeout() -> void:
+	_pan_is_rotating = true 
 
 
 func _on_pan_calibrate_timer_timeout() -> void:

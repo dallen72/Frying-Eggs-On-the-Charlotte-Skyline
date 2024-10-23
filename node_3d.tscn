@@ -82,7 +82,7 @@ skeleton = NodePath("../../../camera")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-3.43716e-08, -0.617805, 0.786332, -2.70051e-08, 0.786332, 0.617805, -1, 0, -4.37114e-08, 6.05456, 4.78932, 0)
 
-[node name="panRotationTimer" type="Timer" parent="."]
+[node name="panFlipReactionTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="panCalibrateTimer" type="Timer" parent="."]
@@ -218,5 +218,5 @@ text = "SCORE :          0   points"
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[connection signal="timeout" from="panRotationTimer" to="." method="_on_pan_rotation_timer_timeout"]
+[connection signal="timeout" from="panFlipReactionTimer" to="." method="_on_pan_flip_reaction_timer_timeout"]
 [connection signal="timeout" from="panCalibrateTimer" to="." method="_on_pan_calibrate_timer_timeout"]
