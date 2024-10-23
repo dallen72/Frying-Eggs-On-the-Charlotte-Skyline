@@ -15,6 +15,7 @@ var Ball = preload("res://ball.tscn")
 var _game_started
 var _instruction_count
 var score
+var hiScore
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,6 +27,7 @@ func _ready() -> void:
 	_game_started = false
 	_instruction_count = 0
 	score = 1
+	hiScore = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -98,10 +100,15 @@ func run_game_loop(delta):
 func resetBall():
 	$rig/ball.queue_free()
 	await $rig/ball.tree_exited
+	if (score > hiScore):
+		hiScore = score
+		$hiScoreText.show()
+		$hiScoreText.text = "HI SCORE : " + str(hiScore) + " points"
 	score /= 2
 	var ball = Ball.instantiate()
 	$rig.add_child(ball)
 	ball.name = "ball"
+
 
 
 func flip_pan():
