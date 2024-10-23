@@ -1,8 +1,5 @@
 extends Node3D
 
-signal pan_should_rotate_now
-
-var _pan_is_rotating
 var _elapsed
 var _angle_x
 var _angle_z
@@ -82,15 +79,12 @@ func processUserInput():
 
 func run_game_loop(delta):    
 	processUserInput()
-	
-	if (_pan_is_rotating == true):
-		rotate_pan(_angle_x, _angle_z)
 			
 	if (_pan_is_being_flipped == true):
 		continue_flipping_pan(_angle_x, _angle_z)
 
 	if (get_node_or_null("rig/ball")):
-		if ( ! _pan_is_rotating):
+		if (true):#if ( ! _pan_is_rotating):
 			if (_pan_is_being_moved_under_ball):
 				$rig/ball.gravity_scale = 1
 				_pan_is_being_moved_under_ball = false
@@ -152,37 +146,6 @@ func continue_flipping_pan(angle_x, angle_z):
 	if (x_is_reached and z_is_reached):
 		_pan_is_being_flipped = false
 
-	
-#	var target_angle = $pan.global_position.angle_to_point(target)
-	#$pan.rotation = Vector3(0, 0, 0) # x between pi/6 and -pi/6
-	#$pan.rotation = Vector3(0, 0, 0) # x and z between pi/6 and -pi/6
-
-#	$pan.rotate_z(deg_to_rad(lerp(0, 0, PI/6)))
-	
-
-
-func rotate_pan(angle_x, angle_z):
-	var starting_angle_z = $rig/pan.rotation.z
-	var starting_angle_x = $rig/pan.rotation.x
-	$rig/pan.rotation = Vector3(lerp_angle(starting_angle_x, angle_x, _elapsed), 0, lerp_angle(starting_angle_z, angle_z, _elapsed))
-	_elapsed += 0.1
-	if (_previous_rotation_x < angle_x and $rig/pan.rotation.x >= angle_x):
-		_pan_is_rotating = false
-	elif (_previous_rotation_x > angle_x and $rig/pan.rotation.x <= angle_x):
-		_pan_is_rotating = false
-	if (_previous_rotation_z < angle_z and $rig/pan.rotation.z >= angle_z):
-		_pan_is_rotating = false
-	elif (_previous_rotation_x > angle_x and $rig/pan.rotation.z <= angle_z):
-		_pan_is_rotating = false
-	elif (
-		abs($rig/pan.rotation.z) > MAX_ANGLE
-		or abs($rig/pan.rotation.x) > MAX_ANGLE):
-		_pan_is_rotating = false
-
-
-func _on_pan_flip_reaction_timer_timeout() -> void:
-	_pan_is_rotating = true 
-
 
 func _on_pan_calibrate_timer_timeout() -> void:	
 	if (get_node_or_null("rig/ball")):
@@ -201,7 +164,6 @@ func _move_pan_under_ball():
 	$rig/ball.apply_impulse(4*($rig/ballSpawn.position - $rig/ball.position) + OFFSET_PUSHING_BALL_DOWN)
 	print("debug, pan moved under ball")
 
-	if ( ! _pan_is_rotating):
-		$rig/ball.gravity_scale = 1
-		_pan_is_being_moved_under_ball = false
-		$rig.velocity = Vector3()
+	$rig/ball.gravity_scale = 1
+	_pan_is_being_moved_under_ball = false
+	$rig.velocity = Vector3()
