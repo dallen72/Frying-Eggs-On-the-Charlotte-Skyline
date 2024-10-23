@@ -47,6 +47,26 @@ func _physics_process(delta: float) -> void:
 		run_game_loop(delta)
 
 
+func updateInstructionsOnScreen():
+	_instruction_count += 1
+	if (_instruction_count == 12):
+		$instructionOne.hide()
+		$instructionTwo.show()
+	if (_instruction_count == 20):
+		$instructionTwo.hide()
+		$instructionThree.show()
+	if (_instruction_count == 28):
+		$instructionThree.hide()
+		$instructionFour.show()
+	if (_instruction_count == 36):
+		$instructionFour.hide()
+		$instructionFive.show()
+	elif (_instruction_count == 44 ):
+		$instructionFive.hide()
+		$scoreText.show()
+	print("debug, instruction_count: " + str(_instruction_count     ))
+
+
 func run_game_loop(delta):    
 	if (_pan_is_rotating == true):
 			rotate_pan(_angle_x, _angle_z)
@@ -54,30 +74,12 @@ func run_game_loop(delta):
 	if (Input.is_action_just_pressed("ui_accept")):
 		$panCalibrateTimer.start()
 
-
 	if (Input.is_action_just_released("ui_accept")):
 		_pan_was_just_reset = false
 		flip_pan()
 		$panCalibrateTimer.stop()
 		if (_instruction_count < 48):
-			_instruction_count += 1
-			
-		if (_instruction_count == 12):
-			$instructionOne.hide()
-			$instructionTwo.show()
-		if (_instruction_count == 20):
-			$instructionTwo.hide()
-			$instructionThree.show()
-		if (_instruction_count == 28):
-			$instructionThree.hide()
-			$instructionFour.show()
-		if (_instruction_count == 36):
-			$instructionFour.hide()
-			$instructionFive.show()
-		elif (_instruction_count == 44 ):
-			$instructionFive.hide()
-			$scoreText.show()
-		print("debug, instruction_count: " + str(_instruction_count     ))
+			updateInstructionsOnScreen()
 
 	if (_pan_is_being_flipped == true):
 		continue_flipping_pan(_angle_x, _angle_z)
