@@ -1,5 +1,6 @@
 extends Node3D
 
+const MAX_PAN_ANGLE_BEFORE_RESET = 0.3
 var _elapsed
 var _angle_x
 var _angle_z
@@ -167,3 +168,14 @@ func _move_pan_under_ball():
 	$rig/ball.gravity_scale = 1
 	_pan_is_being_moved_under_ball = false
 	$rig.velocity = Vector3()
+	
+	if ($rig/pan.rotation.x > 0.2 or $rig/pan.rotation.z > MAX_PAN_ANGLE_BEFORE_RESET):
+		resetPan()
+
+func resetPan():
+	_previous_rotation_x = $rig/pan.rotation.x
+	_previous_rotation_z = $rig/pan.rotation.z
+	_angle_z = 0
+	_angle_x = 0
+	_elapsed = 0.01
+	_pan_is_being_flipped = true	
