@@ -74,8 +74,9 @@ func processUserInput():
 			updateInstructionsOnScreen()
 
 	if (Input.is_action_just_released("ui_accept")):
+		if ( ! _pan_was_just_reset):
+			flip_pan()
 		_pan_was_just_reset = false
-		flip_pan()
 		$panCalibrateTimer.stop()
 
 
@@ -195,5 +196,5 @@ func _on_pan_calibrate_timer_timeout() -> void:
 func _move_pan_under_ball():
 	const UP_OFFSET_PUSHING_BALL_UP = Vector3(0,1,0)
 	$rig/ball.apply_impulse(-2*($rig/ball.position - $rig/ballSpawn.position) + UP_OFFSET_PUSHING_BALL_UP)
-	#$rig/ball.inertia = Vector3(0.1, 0.1, 0.1)
+	#$rig/pan.velocity = (Vector3(0, 100, 0))
 	print("debug, pan moved under ball")
