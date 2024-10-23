@@ -193,7 +193,7 @@ size_flags_horizontal = 4
 theme = SubResource("Theme_i80a4")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
-text = "Can you get 2,000 points?"
+text = "Can you get 3,000 points?"
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 

@@ -96,19 +96,17 @@ func run_game_loop(delta):
 				_pan_is_being_moved_under_ball = false
 				$rig.velocity = Vector3()
 		
-		#if (_pan_is_being_moved_under_ball == true):
-			#var direction_to_center = $rig/ball.position - Vector3(0, 0, -0.5) - $rig/ballSpawn.position
-			#$rig.velocity = direction_to_center + Vector3(0, 10 *$rig/ball.velocity.y, 0)
-			#print("debug, pan velocity: " + str($rig.velocity))
-			#$rig.move_and_slide() # TODO: delta time?
-
 		if ($rig/ball.position.length() > 3.0):
-			$rig/ball.queue_free()
-			await $rig/ball.tree_exited
-			score /= 2
-			var ball = Ball.instantiate()
-			$rig.add_child(ball)
-			ball.name = "ball"
+			resetBall()
+
+
+func resetBall():
+	$rig/ball.queue_free()
+	await $rig/ball.tree_exited
+	score /= 2
+	var ball = Ball.instantiate()
+	$rig.add_child(ball)
+	ball.name = "ball"
 
 
 func flip_pan():
@@ -186,11 +184,15 @@ func _on_pan_flip_reaction_timer_timeout() -> void:
 	_pan_is_rotating = true 
 
 
-func _on_pan_calibrate_timer_timeout() -> void:
+func _on_pan_calibrate_timer_timeout() -> void:	
 	if (get_node_or_null("rig/ball")):
-		_pan_is_being_moved_under_ball = true
-		_move_pan_under_ball()
-	_pan_was_just_reset = true
+		if ($rig/pan.position.y - $rig/ball.position.y > 1):
+			resetBall()
+			return
+		else:
+			_pan_is_being_moved_under_ball = true
+			_move_pan_under_ball()
+		_pan_was_just_reset = true
 			
 		
 # move the pan under the ball to like you would if you were balacing a ping pong paddle
