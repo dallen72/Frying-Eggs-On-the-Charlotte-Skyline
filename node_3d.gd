@@ -16,17 +16,18 @@ var _pan_is_being_moved_under_ball
 var Ball = preload("res://ball.tscn")
 var _game_started
 var _instruction_count
+var score
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	random_num_generator = RandomNumberGenerator.new()
-	#_initialize_auto_pan_rotate()
 	
 	_pan_was_just_reset = false	
 	_pan_is_being_flipped = false
 	_pan_is_being_moved_under_ball = false
 	_game_started = false
 	_instruction_count = 0
+	score = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -34,7 +35,6 @@ func _process(delta: float) -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	
 	if ( ! _game_started):
 		if (Input.is_action_pressed("ui_accept")):
 			$rig/ball.apply_impulse(Vector3(0, 0, 0.5))
@@ -42,6 +42,8 @@ func _physics_process(delta: float) -> void:
 			$instructionOne.show()
 			_game_started = true
 	else:
+		score += 1
+		$scoreText.text = "SCORE : " + str(score) + " points"
 		run_game_loop(delta)
 
 
@@ -57,14 +59,24 @@ func run_game_loop(delta):
 		_pan_was_just_reset = false
 		flip_pan()
 		$panCalibrateTimer.stop()
-		if (_instruction_count < 7):
+		if (_instruction_count < 48):
 			_instruction_count += 1
 			
-		if (_instruction_count == 3):
+		if (_instruction_count == 12):
 			$instructionOne.hide()
 			$instructionTwo.show()
-		elif (_instruction_count == 5 ):
+		if (_instruction_count == 20):
 			$instructionTwo.hide()
+			$instructionThree.show()
+		if (_instruction_count == 28):
+			$instructionThree.hide()
+			$instructionFour.show()
+		if (_instruction_count == 36):
+			$instructionFour.hide()
+			$instructionFive.show()
+		elif (_instruction_count == 44 ):
+			$instructionFive.hide()
+			$scoreText.show()
 		print("debug, instruction_count: " + str(_instruction_count     ))
 
 	if (_pan_is_being_flipped == true):
@@ -79,30 +91,17 @@ func run_game_loop(delta):
 		
 		if (_pan_is_being_moved_under_ball == true):
 			var direction_to_center = $rig/ball.position - Vector3(0, 0, -0.5) - $rig/ballSpawn.position
-			$rig.velocity = direction_to_center
+			$rig.velocity = direction_to_center + Vector3(0, 2*$rig/ball.velocity.y, 0)
 			print("debug, pan velocity: " + str($rig.velocity))
 			$rig.move_and_slide() # TODO: delta time?
 
 		if ($rig/ball.position.length() > 3.0):
 			$rig/ball.queue_free()
 			await $rig/ball.tree_exited
+			score /= 2
 			var ball = Ball.instantiate()
 			$rig.add_child(ball)
 			ball.name = "ball"
-
-func _initialize_auto_pan_rotate():
-	$panRotationTimer.start()
-	print("debug, pan is rotating")
-	_pan_is_rotating = false
-	_elapsed = 0.0
-	_previous_rotation_x = 0.0
-	_previous_rotation_z = 0.0
-	_angle_x = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
-	_angle_z = 	random_num_generator.randf_range(-1*MAX_ANGLE, MAX_ANGLE)
-	if (abs(_angle_x) > 0.1):
-		_angle_x = 0.2
-	elif (abs(_angle_z) > 0.1):
-		_angle_z = 0.2
 
 
 func flip_pan():
