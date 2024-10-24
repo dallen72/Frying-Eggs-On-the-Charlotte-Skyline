@@ -13,9 +13,9 @@ var _pan_was_just_reset
 var _pan_is_being_moved_under_ball
 var Ball = preload("res://ball.tscn")
 var _game_started
-var _instruction_count
 var score
 var hiScore
+var instruction_count
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,63 +25,52 @@ func _ready() -> void:
 	_pan_is_being_flipped = false
 	_pan_is_being_moved_under_ball = false
 	_game_started = false
-	_instruction_count = 0
 	score = 1
 	hiScore = 0
+	instruction_count = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 	
-
+	
+func start_game():
+	$rig/ball.apply_impulse(Vector3(0, 0, 0.5))
+	$menu.hide()
+	$scoreText.show()
+	_game_started = true
+		
+			
 func _physics_process(delta: float) -> void:
-	if ( ! _game_started):
-		if (Input.is_action_pressed("ui_accept")):
-			$rig/ball.apply_impulse(Vector3(0, 0, 0.5))
-			$menu.hide()
-			$instructionOne.show()
-			_game_started = true
+	if (not _game_started):
+		processMenuInput()
 	else:
 		score += 1
-		$scoreText.text = "SCORE : " + str(score) + " points"
 		run_game_loop(delta)
 
 
-func updateInstructionsOnScreen():
-	_instruction_count += 1
-	if (_instruction_count == 12):
-		$instructionOne.hide()
-		$instructionTwo.show()
-	if (_instruction_count == 20):
-		$instructionTwo.hide()
-		$instructionThree.show()
-	if (_instruction_count == 28):
-		$instructionThree.hide()
-		$instructionFour.show()
-	if (_instruction_count == 36):
-		$instructionFour.hide()
-		$instructionFive.show()
-	elif (_instruction_count == 44 ):
-		$instructionFive.hide()
-		$scoreText.show()
-	print("debug, instruction_count: " + str(_instruction_count     ))
+func processMenuInput():	
+	if (Input.is_action_just_pressed("ui_accept")):
+		if (instruction_count < 5):
+			instruction_count = $menu.updateInstructionsOnScreen(instruction_count)
+		else:
+			start_game()
 
-
-func processUserInput():
+	
+func processGameplayInput():
 	if (Input.is_action_just_pressed("ui_accept")):
 		$panCalibrateTimer.start()
-		if (_instruction_count < 48):
-			updateInstructionsOnScreen()
 
 	if (Input.is_action_just_released("ui_accept")):
 		if ( ! _pan_was_just_reset):
 			flip_pan()
 		_pan_was_just_reset = false
 		$panCalibrateTimer.stop()
-
+	
 
 func run_game_loop(delta):    
-	processUserInput()
+	$scoreText.text = "SCORE : " + str(score) + " points"
+	processGameplayInput()
 			
 	if (_pan_is_being_flipped == true):
 		continue_flipping_pan(_angle_x, _angle_z)

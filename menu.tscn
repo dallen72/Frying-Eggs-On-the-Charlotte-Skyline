@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm7ui1q6dab41"]
+[gd_scene load_steps=5 format=3 uid="uid://dm7ui1q6dab41"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_b21er"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_i1src"]
 
@@ -9,6 +11,7 @@ default_font_size = 100
 default_font_size = 50
 
 [node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_b21er")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -54,4 +57,5 @@ autowrap_mode = 2
 [node name="mainInstruction" type="Label" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_bm3iq")
-text = "Press the SPACE BAR to Start"
+text = "Press the SPACE BAR to GO"
+autowrap_mode = 2
