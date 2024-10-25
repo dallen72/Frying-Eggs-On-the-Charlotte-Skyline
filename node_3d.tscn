@@ -33,6 +33,7 @@ sky_material = SubResource("PanoramaSkyMaterial_l6a0d")
 [sub_resource type="Environment" id="Environment_u4cvn"]
 background_mode = 2
 sky = SubResource("Sky_jbhae")
+sky_custom_fov = 117.0
 sky_rotation = Vector3(0, 1.5708, 0)
 
 [sub_resource type="Theme" id="Theme_i80a4"]
@@ -105,8 +106,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme = SubResource("Theme_i80a4")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "SCORE :          0   points"
 autowrap_mode = 2

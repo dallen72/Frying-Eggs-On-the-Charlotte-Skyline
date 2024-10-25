@@ -65,8 +65,8 @@ autowrap_mode = 2
 
 [node name="creditsText" type="Label" parent="."]
 anchors_preset = -1
-anchor_left = 0.175347
-anchor_top = 0.891975
+anchor_left = -0.230035
+anchor_top = 0.760802
 anchor_right = 0.742188
 anchor_bottom = 1.5787
 offset_left = 326.0
@@ -80,6 +80,6 @@ theme = SubResource("Theme_vltkp")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-text = "Made by David Allen"
+text = "Made by David Allen; Image from Pixabay.com"
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true

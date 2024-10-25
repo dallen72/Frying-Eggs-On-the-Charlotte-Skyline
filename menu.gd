@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 func updateInstructionsOnScreen(instruction_count):
 	instruction_count += 1
 	if (instruction_count == 1):
+		$creditsText.hide()
 		$Control/MarginContainer/VBoxContainer/mainInstruction.text = "Press the SPACE BAR to move the pan. Don't let the Egg Fall!"
 	if (instruction_count == 2):
 		$Control/MarginContainer/VBoxContainer/mainInstruction.text = "The longer you balance the ball, the more points you get..."
