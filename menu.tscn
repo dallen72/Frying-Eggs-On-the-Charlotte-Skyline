@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dm7ui1q6dab41"]
+[gd_scene load_steps=6 format=3 uid="uid://dm7ui1q6dab41"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_b21er"]
 
@@ -9,6 +9,9 @@ default_font_size = 100
 
 [sub_resource type="Theme" id="Theme_bm3iq"]
 default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_vltkp"]
+default_font_size = 56
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_b21er")
@@ -59,3 +62,24 @@ layout_mode = 2
 theme = SubResource("Theme_bm3iq")
 text = "Press the SPACE BAR to GO"
 autowrap_mode = 2
+
+[node name="creditsText" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.175347
+anchor_top = 0.891975
+anchor_right = 0.742188
+anchor_bottom = 1.5787
+offset_left = 326.0
+offset_top = -39.0
+offset_right = 326.0
+offset_bottom = -39.0001
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_vltkp")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Made by David Allen"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true

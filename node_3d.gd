@@ -39,7 +39,7 @@ func start_game():
 	$menu.hide()
 	$scoreText.show()
 	_game_started = true
-		
+	
 			
 func _physics_process(delta: float) -> void:
 	if (not _game_started):
