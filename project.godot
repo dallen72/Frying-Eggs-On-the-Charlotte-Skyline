@@ -14,3 +14,7 @@ config/name="Frying-Eggs-On-The-Charlotte-Skyline"
 run/main_scene="res://node_3d.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="viewport"
