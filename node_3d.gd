@@ -17,6 +17,7 @@ var score
 var hiScore
 var instruction_count
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	random_num_generator = RandomNumberGenerator.new()
@@ -51,7 +52,7 @@ func _physics_process(delta: float) -> void:
 
 func processMenuInput():	
 	if (Input.is_action_just_pressed("ui_accept")):
-		if (instruction_count < 5):
+		if (instruction_count < 6):
 			instruction_count = $menu.updateInstructionsOnScreen(instruction_count)
 		else:
 			start_game()
@@ -164,6 +165,8 @@ func _move_pan_under_ball():
 	$rig/ball.gravity_scale = 1
 	_pan_is_being_moved_under_ball = false
 	$rig.velocity = Vector3()
+	
+	score -= 100
 	
 	if ($rig/pan.rotation.x > 0.2 or $rig/pan.rotation.z > MAX_PAN_ANGLE_BEFORE_RESET):
 		resetPan()

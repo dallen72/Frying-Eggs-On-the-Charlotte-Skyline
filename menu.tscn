@@ -80,6 +80,6 @@ theme = SubResource("Theme_vltkp")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-text = "Made by David Allen; Image from Pixabay.com"
+text = "Produced by David; Image from Pixabay.com"
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true

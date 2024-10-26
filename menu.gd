@@ -23,8 +23,10 @@ func updateInstructionsOnScreen(instruction_count):
 	elif (instruction_count == 4 ):
 		$Control/MarginContainer/VBoxContainer/mainInstruction.text = "Hold and release the SPACE BAR to move the pan under the Egg"
 	elif (instruction_count == 5 ):
-		$Control/MarginContainer/VBoxContainer/mainInstruction.text = "Can you get 3,000 points?"
+		$Control/MarginContainer/VBoxContainer/mainInstruction.text = "But, holding the space bar costs points..."
 	elif (instruction_count == 6 ):
+		$Control/MarginContainer/VBoxContainer/mainInstruction.text = "Can you get 3,000 points?"
+	elif (instruction_count == 7 ):
 		$Control/MarginContainer/VBoxContainer/mainInstruction.hide()
 	print("debug, instruction_count: " + str(instruction_count     ))
 	return instruction_count
