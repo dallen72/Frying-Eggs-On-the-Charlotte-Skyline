@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bjtyui8bubeoo"]
+[gd_scene load_steps=16 format=3 uid="uid://bjtyui8bubeoo"]
 
 [ext_resource type="Script" path="res://node_3d.gd" id="1_tc2qq"]
 [ext_resource type="PackedScene" uid="uid://sexbqjx30dhi" path="res://ball.tscn" id="2_lvcmm"]
@@ -38,6 +38,8 @@ sky_rotation = Vector3(0, 1.5708, 0)
 
 [sub_resource type="Theme" id="Theme_i80a4"]
 default_font_size = 56
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxxg0"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_tc2qq")
@@ -134,5 +136,11 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Hi Score:"
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(571, 325)
+scale = Vector2(60, 35)
+shape = SubResource("RectangleShape2D_sxxg0")
+action = "ui_accept"
 
 [connection signal="timeout" from="panCalibrateTimer" to="." method="_on_pan_calibrate_timer_timeout"]
