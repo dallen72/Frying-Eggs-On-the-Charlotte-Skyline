@@ -29,6 +29,7 @@ func _ready() -> void:
 	score = 1
 	hiScore = 0
 	instruction_count = 0
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -40,7 +41,14 @@ func start_game():
 	$menu.hide()
 	$scoreText.show()
 	_game_started = true
-	
+	disableClickOnDesktop()	
+			
+
+func disableClickOnDesktop():
+	if ( not (OS.has_feature("web_android") or OS.has_feature("web_ios")) ):
+		$TouchScreenButton.hide()
+
+			
 			
 func _physics_process(delta: float) -> void:
 	if (not _game_started):
