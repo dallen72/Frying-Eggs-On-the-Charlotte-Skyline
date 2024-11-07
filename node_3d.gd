@@ -114,19 +114,46 @@ func flip_pan():
 	_previous_rotation_x = $rig/pan.rotation.x
 	_previous_rotation_z = $rig/pan.rotation.z
 	while true:
-		_angle_z   = -1 * $rig/pan.rotation.z + random_num_generator.randf_range(-0.1, 0.1)
+		_angle_z = $rig/pan.rotation.z
+		if (abs(_angle_z) > 0.1):
+			_angle_z *= -1
+		var rand_num = random_num_generator.randf_range(-0.1, 0.1)
+		print("debug, rand_num z = " + str(rand_num))
+		_angle_z +=  rand_num
 		print("debug, angle_z : " + str(_angle_z))
+		
+		if (abs(_angle_z - $rig/pan.rotation.z) < 0.1):
+			_angle_z *= -1
 		if (abs(_angle_z) > 0.05):
 			break 
 	while true:
-		_angle_x = -1 * $rig/pan.rotation.x + random_num_generator.randf_range(-0.1, 0.1)
+		_angle_x = $rig/pan.rotation.x
+		if (abs(_angle_x) > 0.1):
+			_angle_x *= -1
+		var rand_num = random_num_generator.randf_range(-0.1, 0.1)
+		print("debug, rand_num x = " + str(rand_num))
+		_angle_x +=  rand_num
 		print("debug, angle_x: " + str(_angle_x))
+		
+		if (abs(_angle_x - $rig/pan.rotation.x) < 0.1):
+			_angle_x *= -1
 		if (abs(_angle_x) > 0.05):
 			break
+	if (abs(_angle_x) > MAX_ANGLE):
+		if (_angle_x >= 0):
+			_angle_x = MAX_ANGLE
+		else:
+			_angle_x = -1*MAX_ANGLE
+	if (abs(_angle_z) > MAX_ANGLE):
+		if (_angle_z >= 0):
+			_angle_z = MAX_ANGLE
+		else:
+			_angle_z = -1*MAX_ANGLE
+	
 	print("debug, angle_x: " + str(_angle_x))
 	print("debug, angle_z: " + str(_angle_z))
 	_elapsed = 0.01
-	_pan_is_being_flipped = true
+	_pan_is_being_flipped = true 
 
 
 func continue_flipping_pan(angle_x, angle_z):
@@ -136,18 +163,14 @@ func continue_flipping_pan(angle_x, angle_z):
 	_elapsed += 0.1
 	var x_is_reached = false
 	var z_is_reached = false
-	if (_previous_rotation_x <= angle_x and $rig/pan.rotation.x >= angle_x):
+	if (_previous_rotation_x <= angle_x and $rig/pan.rotation.x >= angle_x): #previous rotation is negative
 		x_is_reached = true
-	elif (_previous_rotation_x >= angle_x and $rig/pan.rotation.x <= angle_x):
+	elif (_previous_rotation_x >= angle_x and $rig/pan.rotation.x <= angle_x):#previous rotation is positive
 		x_is_reached = true
-	if (_previous_rotation_z <= angle_z and $rig/pan.rotation.z >= angle_z):
+	if (_previous_rotation_z <= angle_z and $rig/pan.rotation.z >= angle_z):#previous rotation is negative
 		z_is_reached = true
-	elif (_previous_rotation_z >= angle_z and $rig/pan.rotation.z <= angle_z):
+	elif (_previous_rotation_z >= angle_z and $rig/pan.rotation.z <= angle_z):#previous rotation is positive
 		z_is_reached = true
-	elif (
-		abs($rig/pan.rotation.z) > MAX_ANGLE
-		or abs($rig/pan.rotation.x) > MAX_ANGLE):
-		_pan_is_being_flipped = false
 
 	if (x_is_reached and z_is_reached):
 		_pan_is_being_flipped = false
